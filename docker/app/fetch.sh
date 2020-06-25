@@ -7,3 +7,6 @@ cd $SCRIPT_DIR
 rsync -auv ../../Pipfile ./Pipfile
 rsync -auv ../../Pipfile.lock ./Pipfile.lock
 rsync -auv ../../app/ ./app/
+
+# rm pycache
+# find ./app -name "*pyc" -type f | xargs rm
