@@ -1,8 +1,0 @@
-name: fastapi_slim
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - fastapi
-  - uvicorn
-

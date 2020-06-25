@@ -1,0 +1,21 @@
+name: fastapi_pyspark
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python==3.8.*
+  - openjdk==11.*
+  - pyspark==3.*
+  - pandas==1.*
+  - pyarrow
+  # - fastparquet
+  - fastapi
+  - uvicorn
+  - sqlalchemy
+  - alembic
+  # - databases
+  - aiofiles
+  - jinja2
+  # - pip:
+    # - graphframes
+
