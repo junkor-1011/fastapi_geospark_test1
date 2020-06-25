@@ -36,7 +36,8 @@ RUN useradd -m -s /bin/bash -u ${USER_UID} ${USER_NAME} && \
 # COPY ./app /app/app
 # RUN mkdir /app/db
 RUN mkdir /app && \
-    mkdir /app/db
+    mkdir /app/db && \
+    mkdir /app/hive-db
 COPY ./Pipfile /app/Pipfile
 COPY ./Pipfile.lock /app/Pipfile.lock
 RUN chown -R ${USER_NAME}:${USER_NAME} /app
