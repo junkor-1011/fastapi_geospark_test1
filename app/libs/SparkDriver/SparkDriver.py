@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#import os
-#import sys
+# import os
+# import sys
 import csv
-#import pathlib
-#import argparse
+# import pathlib
+# import argparse
 import logging
-import gc
+# import gc
 
-import pyspark.sql
+import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
@@ -25,11 +25,18 @@ class SparkDriver:
     Comment:
     """
     conf = None
-    spark = None
-    
+    # spark = None
+    _spark = None
 
+    @property
+    def spark(self):
+        return self._spark
 
-    
+    @spark.setter
+    def spark(self, spark):
+        assert isinstance(spark, pyspark.sql.SparkSession)
+        self.spark = spark
+
     def __init__(self, ):
         """
         """
@@ -40,7 +47,6 @@ class SparkDriver:
         """
         # TMP
         return conf_spark_session.conf_list
-
 
     def createSession(self, ):
         """
@@ -59,77 +65,6 @@ class SparkDriver:
             self.spark = spark
         else:
             logging.warning("WARNING: SparkSession is already created.")
-    
-    def stopSession(self, ):
-        """
-        """
-        if self.spark is not None:
-            #spark = self.spark
-            #spark.stop()
-            self.spark.stop()
-            del self.spark
-            gc.collect()
-
-        else:
-            logging.warning("WARNING: SparkSession is already stopped.")
-
-
-    def _demo(self, path, show_number=30):
-        """
-        :arg
-        """
-        if self.spark is None:
-            logging.warning("WARNING: There is NO SparkSession")
-            return False
-        spark = self.spark
-        import seaborn as sns
-        iris = sns.load_dataset("iris")
-        df = spark.createDataFrame(iris)
-        df.show(show_number)
-        df.write.mode("overwrite").parquet(path)
-        df.toPandas().to_parquet(path + "/iris.snappy.parquet")
-        logging.info("INFO: finish demo-process.")
-
-
-    def _demo_write(self,
-               tableName,
-               dataset="iris",
-               mode="errorifexists",
-               format="orc",
-               **kwargs):
-        """
-
-        """
-        if self.spark is None:
-            logging.warning("WARNING: There is NO SparkSession")
-            return False
-        spark = self.spark
-        import seaborn as sns
-        pdf_dataset = sns.load_dataset('iris')
-        df_dataset = spark.createDataFrame(pdf_dataset)
-        df_dataset.write.saveAsTable(tableName, format=format, mode=mode, **kwargs)
-        return True
-
-    def _demo_read(self,
-                   table_name,
-                   ):
-        """
-
-        :param table:
-        :return:
-        """
-        if self.spark is None:
-            logging.warning("WARNING: There is NO SparkSession")
-            return False
-        spark = self.spark
-
-        df = spark.sql(f"""
-            SELECT * FROM {table_name}
-    """)
-        return df
-
-
-
 
     def csv_to_spark(self, input, output, schema_csv):
         """
@@ -167,5 +102,3 @@ class SparkDriver:
 
         # write snappy.parquet
         df.write.mode("overwrite").parquet(output)
-
-
