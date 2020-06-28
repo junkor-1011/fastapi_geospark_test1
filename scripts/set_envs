@@ -9,7 +9,7 @@ export PYTHONPATH=$PROJECT_HOME/app/libs:$PYTHONPATH
 export PATH=$PROJECT_HOME/scripts/project_bin:$PATH
 
 # default
-PROJECT_PROMPT=fastapi_pyspark1
+# PROJECT_PROMPT=fastapi_pyspark1
 
 # custom setting
 if [ -f $PROJECT_HOME/scripts/custom_setting ]; then
@@ -17,4 +17,4 @@ if [ -f $PROJECT_HOME/scripts/custom_setting ]; then
 fi
 
 # PROMPT
-export PS1=\($PROJECT_PROMPT\)$PS1
+# export PS1=\($PROJECT_PROMPT\)$PS1
