@@ -1,0 +1,6 @@
+# please source me from bash or zsh
+
+export PROJECT_PYTHON_HOME=$HOME/.pyenv/versions/miniconda3-latest/envs/fastapi_pyspark
+
+export PATH=$PROJECT_PYTHON_HOME/sbin:$PROJECT_PYTHON_HOME/bin:$PATH
+export JAVA_HOME=$PROJECT_PYTHON_HOME
