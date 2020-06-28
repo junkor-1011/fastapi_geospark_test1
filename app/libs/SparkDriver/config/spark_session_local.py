@@ -36,7 +36,7 @@ HIVE_METASTORE_DB_HOME = os.getenv(
 appName = "local-test"
 master = "local[*]"
 conf_list = [    # TMP
-    ["spark.sql.execution.arrow.enabled", "true"],
+    ["spark.sql.execution.arrow.pyspark.enabled", "true"],
     ["spark.memory.offHeap.enabled", "true"],
     ["spark.memory.offHeap.size", "4096"],
     ["spark.driver.memory", "2g"],
