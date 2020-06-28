@@ -64,6 +64,8 @@ export HIVE_METASTORE_DB_HOME=$HIVE_METASTORE_DB_HOME
 
 export PYTHONPATH=$PROJECT_HOME/app/libs:$PYTHONPATH
 
+export PATH=$PROJECT_HOME/scripts/project_bin:$PATH
+
 # custom setting
 if [ -f $PROJECT_HOME/scripts/custom_setting ]; then
     source $PROJECT_HOME/scripts/custom_setting
