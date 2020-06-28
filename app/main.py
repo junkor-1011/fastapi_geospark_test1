@@ -15,6 +15,7 @@ from fastapi.responses import (
 from .routers import (
     test_api,
     test_crud,
+    test_spark,
     subpage,
 )
 # from .test_static import router as router_static   # TMP
@@ -37,6 +38,12 @@ def create_app():
         test_crud.router,
         prefix="/test_crud",
         tags=["test_crud"],
+        responses={404: {"description": "not found"}},
+    )
+    _app.include_router(
+        test_spark.router,
+        prefix="/test_spark",
+        tags=["test_spark"],
         responses={404: {"description": "not found"}},
     )
     _app.include_router(
