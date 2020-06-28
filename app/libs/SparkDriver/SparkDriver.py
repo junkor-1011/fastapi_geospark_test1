@@ -34,8 +34,8 @@ class SparkDriver:
 
     @spark.setter
     def spark(self, spark):
-        assert isinstance(spark, pyspark.sql.SparkSession)
-        self.spark = spark
+        assert isinstance(spark, pyspark.sql.session.SparkSession)
+        self._spark = spark
 
     def __init__(self, ):
         """

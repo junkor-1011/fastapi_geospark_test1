@@ -4,7 +4,7 @@ channels:
   - defaults
 dependencies:
   - python==3.8.*
-  - openjdk==11.*
+  - openjdk==8.*
   - pyspark==3.*
   - pandas==1.*
   - pyarrow
