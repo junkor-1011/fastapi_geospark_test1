@@ -22,3 +22,9 @@ async def site_root(orient: str="dict"):
         "db": dict_db,
         "table": dict_table,
     }
+
+
+@router.post("/")
+async def create_db(db: str):
+    result = exec_spark.create_database(db=db)
+    return result

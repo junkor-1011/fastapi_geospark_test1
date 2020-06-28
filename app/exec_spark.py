@@ -18,6 +18,23 @@ def get_databases(orient: str="dict") -> dict:
         .to_dict(orient=orient)
 
 
+def create_database(db: str) -> dict:
+    """
+    create database
+
+    ToDo:
+
+        - try, exceptをもう少しうまく使う（status codeを変えるとか）
+
+    """
+    try:
+        spark.sql(f"create database {db}")
+        message = f"success to create db: {db}"
+    except Exception as e:
+        message = str(e)
+    return {"message": message}
+
+
 def get_tables(orient: str="dict",
                db: str=None) -> dict:
     """get tables"""
