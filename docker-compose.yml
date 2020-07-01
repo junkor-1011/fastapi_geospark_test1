@@ -13,6 +13,7 @@ services:
       - ./docker/web/conf.d:/etc/nginx/conf.d
       - ./docker/web/ssl:/etc/nginx/ssl
       - ./log/nginx:/var/log/nginx
+      - staticdata:/app/static
     networks:
       - nginx_network
 
@@ -32,6 +33,7 @@ services:
       - ./app:/app/app
       - ./scripts:/app/scripts
       - ./db/app_sqlite.db:/app/db/app_sqlite.db
+      - staticdata:/app/app/static/
     command: "run_app_reload"
     # depends_on:
     #   - db_postgis
@@ -43,3 +45,6 @@ networks:
     driver: bridge
   db_network:
     driver: bridge
+
+volumes:
+  staticdata:
