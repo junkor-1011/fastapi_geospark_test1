@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 uvicorn app.main:app --reload \
             --ssl-keyfile $PROJECT_HOME/docker/web/ssl/server.key \
-            --ssl-certfile $PROJECT_HOME/docker/web/ssl/server.crt
+            --ssl-certfile $PROJECT_HOME/docker/web/ssl/server.crt \
+            --host 0.0.0.0

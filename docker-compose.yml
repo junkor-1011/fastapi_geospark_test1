@@ -19,17 +19,20 @@ services:
   app:
     container_name: app
     hostname: app
-    image: ${using_image:-app_fastapi_py38:latest}
+    image: ${using_image:-app_fastapi_pyspark_conda:latest}
     expose:
       - 8000
+      - 4040
     networks:
       - nginx_network
       - db_network
+    ports:
+      - "${SPARKUI_PORT:-4050}:4040"
     volumes:
       - ./app:/app/app
+      - ./scripts:/app/scripts
       - ./db/app_sqlite.db:/app/db/app_sqlite.db
-    # command: ${app_command:-"run reload"}
-    command: "pipenv run reload_proxy"
+    command: "run_app_reload"
     # depends_on:
     #   - db_postgis
     # links:
