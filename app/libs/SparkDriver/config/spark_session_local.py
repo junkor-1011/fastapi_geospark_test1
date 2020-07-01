@@ -3,7 +3,6 @@
 spark_session.py template(local)
 
 ToDo:
-
     - より扱いやすい形式(公式なSparkのconfigファイルなど)で書いたファイルを
       読み込んでパースするようにする
     - 共通部分は ``__init__.py`` などの中で行うようにするなど、共通部分の抜き出し
@@ -35,15 +34,19 @@ HIVE_METASTORE_DB_HOME = os.getenv(
 
 appName = "local-test"
 master = "local[*]"
-conf_list = [    # TMP
+conf_list = [
     ["spark.sql.execution.arrow.pyspark.enabled", "true"],
+    ["spark.serializer", "org.apache.spark.serializer.KryoSerializer"],
+    ["spark.kryoserializer.buffer.max", "1024m"],
+    ["spark.driver.maxResultSize", "10g"],
     ["spark.memory.offHeap.enabled", "true"],
     ["spark.memory.offHeap.size", "4096"],
     ["spark.driver.memory", "2g"],
     ["spark.executor.memory", "6g"],
+    ["spark.sql.session.timeZone", "Etc/UTC"],
     # ["spark.eventLog.enabled", "true"],
-    ["spark.serializer", "org.apache.spark.serializer.KryoSerializer"],
     ["spark.sql.warehouse.dir", SPARK_WAREHOUSE_HOME],
+    ["spark.executor.extraJavaOptions", "-Duser.timezone=Etc/UTC"],
     ["spark.driver.extraJavaOptions",
-     f"-Dderby.system.home='{HIVE_METASTORE_DB_HOME}'"],
+     f"-Duser.timezone=Etc/UTC -Dderby.system.home='{HIVE_METASTORE_DB_HOME}'"],
 ]
