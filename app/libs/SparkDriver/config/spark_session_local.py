@@ -38,7 +38,7 @@ conf_list = [
     ["spark.sql.execution.arrow.pyspark.enabled", "true"],
     ["spark.serializer", "org.apache.spark.serializer.KryoSerializer"],
     ["spark.kryoserializer.buffer.max", "1024m"],
-    ["spark.driver.maxResultSize", "10g"],
+    ["spark.driver.maxResultSize", "6g"],
     ["spark.memory.offHeap.enabled", "true"],
     ["spark.memory.offHeap.size", "4096"],
     ["spark.driver.memory", "2g"],
