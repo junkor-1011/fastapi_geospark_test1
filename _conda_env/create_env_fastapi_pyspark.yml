@@ -18,4 +18,10 @@ dependencies:
   - jinja2
   # - pip:
     # - graphframes
+  # for debug & develop
+  - pytest
+  - ipython
+  - jupyterlab
+  - nodejs
+
 
