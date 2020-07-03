@@ -66,27 +66,29 @@ USER ${USER_UID}
 WORKDIR $HOME
 ARG PYTHON_VERSION=default
 # miniconda
-# ARG MINICONDA_VERSION=py38_4.8.3-Linux-x86_64
-ARG MINICONDA_VERSION=py37_4.8.3-Linux-x86_64
-# ARG MINICONDA_MD5=d63adf39f2c220950a063e0529d4ff74
-ARG MINICONDA_MD5=751786b92c00b1aeae3f017b781018df
+ARG MINICONDA_VERSION=py38_4.8.3-Linux-x86_64
+# ARG MINICONDA_VERSION=py37_4.8.3-Linux-x86_64
+ARG MINICONDA_MD5=d63adf39f2c220950a063e0529d4ff74
+# ARG MINICONDA_MD5=751786b92c00b1aeae3f017b781018df
 ENV PATH=${CONDA_DIR}/bin:$PATH
 
 RUN cd /tmp && \
     wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}.sh && \
     echo "${MINICONDA_MD5} *Miniconda3-${MINICONDA_VERSION}.sh" | md5sum -c - && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-${MINICONDA_VERSION}.sh && \
-    echo "conda ${CONDA_VERSION}" >> $CONDA_DIR/conda-meta/pinned && \
-    conda config --system --prepend channels conda-forge && \
-    conda config --system --set auto_update_conda false && \
-    conda config --system --set show_channel_urls true && \
-    conda config --system --set channel_priority strict && \
-    if [ ! $PYTHON_VERSION = 'default' ]; then conda install --yes python=$PYTHON_VERSION; fi && \
-    conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned && \
-    conda install --quiet --yes conda && \
-    conda install --quiet --yes pip && \
-    conda update --all --quiet --yes
+    rm Miniconda3-${MINICONDA_VERSION}.sh
+    # && \
+    # echo "conda ${CONDA_VERSION}" >> $CONDA_DIR/conda-meta/pinned && \
+    # conda config --system --prepend channels conda-forge && \
+    # conda config --system --set auto_update_conda false && \
+    # conda config --system --set show_channel_urls true && \
+    # conda config --system --set channel_priority strict && \
+    # if [ ! $PYTHON_VERSION = 'default' ]; then conda install --yes python=$PYTHON_VERSION; fi && \
+    # conda list python | grep '^python ' | tr -s ' ' | cut -d '.' -f 1,2 | sed 's/$/.*/' >> $CONDA_DIR/conda-meta/pinned
+    # && \
+    # conda install --quiet --yes conda && \
+    # conda install --quiet --yes pip && \
+    # conda update --all --quiet --yes
 
 # Install Tini
 # RUN conda install --quiet --yes 'tini=0.18.0' && \

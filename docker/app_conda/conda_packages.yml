@@ -14,13 +14,13 @@ dependencies:
   # - fastparquet
   - pandas>=1.0
   - numpy
-  - geopandas
-  - shapely
-  - geopy
-  - gdal==2.*
-  - bokeh==2.0.1
+  # - geopandas
+  # - shapely
+  # - geopy
+  # - gdal==2.*
+  # - bokeh==2.0.1
   # - holoviews
-  - folium
+  # - folium
   - sqlalchemy
   - alembic
   # - databases

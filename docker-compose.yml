@@ -13,9 +13,13 @@ services:
       - ./docker/web/conf.d:/etc/nginx/conf.d
       - ./docker/web/ssl:/etc/nginx/ssl
       - ./log/nginx:/var/log/nginx
-      - staticdata:/app/static
+      # - staticdata:/app/static
+      - ./app/static/:/app/staitc/  # for DEBUG
     networks:
-      - nginx_network
+      # - nginx_network
+      nginx_network:
+        aliases:
+          - nginx-server
 
   app:
     container_name: app
@@ -25,14 +29,19 @@ services:
       - 8000
       - 4040
     networks:
-      - nginx_network
-      - db_network
+      # - nginx_network
+      nginx_network:
+        aliases:
+          - uvicorn-server
+      # - db_network
     ports:
+      # - "${APP_PORT_TMP:-8000}:8000"    # TMP
       - "${SPARKUI_PORT:-4050}:4040"
     volumes:
       - ./app:/app/app
       - ./scripts:/app/scripts
       - ./db/app_sqlite.db:/app/db/app_sqlite.db
+      - ./hive-db:/app/hive-db
       - staticdata:/app/app/static/
     command: "run_app_reload"
     # depends_on:
@@ -43,8 +52,8 @@ services:
 networks:
   nginx_network:
     driver: bridge
-  db_network:
-    driver: bridge
+  # db_network:
+  #   driver: bridge
 
 volumes:
   staticdata:
