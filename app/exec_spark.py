@@ -63,7 +63,7 @@ def create_database(db: str) -> dict:
     return {"message": message}
 
 
-def delete_database(
+def drop_database(
     db: str,
     ifexists: Optional[bool],
     mode: Optional[str],
@@ -78,7 +78,7 @@ def delete_database(
     """
     try:
         spark.sql(sql_query)
-        message = f"success to delete db: {db}"
+        message = f"success to drop db: {db}"
     except Exception as e:
         message = str(e)
 
@@ -112,6 +112,27 @@ def read_table(
         .toPandas() \
         .to_dict(orient=orient)
     return result
+
+
+def drop_table(
+    db: str = "default",
+    table: str = " ",
+    ifexists: Optional[bool] = True,
+):
+    if ifexists:
+        ifexists_opt = "IF EXISTS"
+    else:
+        ifexists_opt = ""
+
+    sql_query = f"DROP TABLE {ifexists_opt} {db}.{table}"
+
+    try:
+        spark.sql(sql_query)
+        message = f"success to drop table: {db}.{table}"
+    except Exception as e:
+        message = str(e)
+
+    return {"message": message}
 
 
 def get_table_info(

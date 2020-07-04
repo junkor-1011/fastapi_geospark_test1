@@ -70,12 +70,12 @@ async def put_database(db: str):
 
 
 @router.delete("/api/databases/{db}")
-async def delete_database(
+async def drop_database(
     db: str,
     ifexists: Optional[bool] = True,
     mode: Optional[str] = "RESTRICT",
 ):
-    return exec_spark.delete_database(
+    return exec_spark.drop_database(
         db=db,
         ifexists=ifexists,
         mode=mode,
@@ -114,6 +114,19 @@ async def read_table(
         table=table,
         limit=limit,
         orient=orient,
+    )
+
+
+@router.delete("/api/databases/{db}/tables/{table}")
+async def drop_table(
+    db: str = "default",
+    table: str = "",
+    ifexists: Optional[bool] = True,
+):
+    return exec_spark.drop_table(
+        db=db,
+        table=table,
+        ifexists=ifexists,
     )
 
 
