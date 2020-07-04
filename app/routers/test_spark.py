@@ -42,6 +42,18 @@ async def create_database(db: str):
     return result
 
 
+@router.put("/api/databases/")
+async def put_database(db: str):
+    """
+    PUT database
+
+    WARNING:
+
+        - NOT implemented yet.
+    """
+    return {"message": "Sorry, Not Implemented yet."}
+
+
 @router.delete("/api/databases")
 async def delete_database(
     db: str,
