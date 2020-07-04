@@ -86,12 +86,10 @@ def delete_database(
 
 
 def get_tables(
-    db: Optional[str],
+    db: Optional[str] = "default",
     orient: str="dict",
 ) -> dict:
     """get tables"""
-    # if db is None:
-    #     db = "default"
 
     sql_query = f"""
         SHOW TABLES FROM {db}
@@ -100,13 +98,6 @@ def get_tables(
         .toPandas() \
         .to_dict(orient=orient)
     return result
-        # result = spark.sql("SHOW TABLES") \
-        #     .toPandas() \
-        #     .to_dict(orient=orient)
-    # else:
-        # result = spark.sql(f"SHOW TABLES FROM {db}") \
-        #     .toPandas() \
-        #     .to_dict(orient=orient)
 
 
 def read_table(
@@ -118,6 +109,24 @@ def read_table(
     df = spark.table(f"{db}.{table}")
 
     result = df.limit(limit) \
+        .toPandas() \
+        .to_dict(orient=orient)
+    return result
+
+
+def get_table_info(
+    db: str = "default",
+    table: str = " ",
+    extended: Optional[bool] = None,
+    orient: str = "dict",
+):
+    if extended:
+        extended_opt = "EXTENDED"
+    else:
+        extended_opt = ""
+
+    sql_query = f"DESCRIBE {extended_opt} {db}.{table}"
+    result = spark.sql(sql_query) \
         .toPandas() \
         .to_dict(orient=orient)
     return result
