@@ -1,5 +1,9 @@
 """exec spark"""
 
+from typing import (
+    Optional,
+)
+
 import pandas as pd
 import pyspark
 import pyspark.sql
@@ -32,6 +36,28 @@ def create_database(db: str) -> dict:
         message = f"success to create db: {db}"
     except Exception as e:
         message = str(e)
+    return {"message": message}
+
+
+def delete_database(
+    db: str,
+    ifexists: Optional[bool],
+    mode: Optional[str],
+):
+    if ifexists:
+        ifexists_option = "IF EXISTS"
+    else:
+        ifexists_option = ""
+
+    sql = f"""
+        DROP DATABASE {ifexists_option} {db} {mode}
+    """
+    try:
+        spark.sql(sql)
+        message = f"success to delete db: {db}"
+    except Exception as e:
+        message = str(e)
+
     return {"message": message}
 
 
