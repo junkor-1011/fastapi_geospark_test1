@@ -80,3 +80,41 @@ async def delete_database(
         ifexists=ifexists,
         mode=mode,
     )
+
+
+@router.get("/api/databases/{db}/tables/")
+async def get_tables(
+    # db: Optional[str],  # = "default",
+    db: str = "default",
+    orient: str = "dict",
+):
+    """get table lists."""
+    return exec_spark.get_tables(
+        db=db,
+        orient=orient,
+    )
+
+
+@router.get("/api/databases/{db}/tables/{table}")
+async def read_table(
+    db: str = "default",
+    table: str = "",
+    limit: int = 100,
+    orient: str = "list",
+    # **kwargs
+):
+    """
+    read table
+
+    ToDo:
+        - validation
+        - read option
+            - such as ``order``
+    """
+    return exec_spark.read_table(
+        table=table,
+        db=db,
+        limit=limit,
+        orient=orient,
+        # **kwargs
+    )
