@@ -22,6 +22,30 @@ def get_databases(orient: str="dict") -> dict:
         .to_dict(orient=orient)
 
 
+def describe_database(
+    db: str,
+    orient: str,
+    extended: Optional[bool],
+):
+    """describe database"""
+    if extended:
+        sql_query = f"""
+            DESCRIBE DATABASE EXTENDED {db}
+        """
+    else:
+        sql_query = f"""
+            DESCRIBE DATABASE {db}
+        """
+
+    try:
+        message = spark.sql(sql_query) \
+            .toPandas() \
+            .to_dict(orient=orient)
+    except Exception as e:
+        message = str(e)
+    return {"message": message}
+
+
 def create_database(db: str) -> dict:
     """
     create database
@@ -32,7 +56,7 @@ def create_database(db: str) -> dict:
 
     """
     try:
-        spark.sql(f"create database {db}")
+        spark.sql(f"CREATE DATABASE {db}")
         message = f"success to create db: {db}"
     except Exception as e:
         message = str(e)
@@ -49,11 +73,11 @@ def delete_database(
     else:
         ifexists_option = ""
 
-    sql = f"""
+    sql_query = f"""
         DROP DATABASE {ifexists_option} {db} {mode}
     """
     try:
-        spark.sql(sql)
+        spark.sql(sql_query)
         message = f"success to delete db: {db}"
     except Exception as e:
         message = str(e)
@@ -65,11 +89,11 @@ def get_tables(orient: str="dict",
                db: str=None) -> dict:
     """get tables"""
     if db is None:
-        result = spark.sql("show tables") \
+        result = spark.sql("SHOW TABLES") \
             .toPandas() \
             .to_dict(orient=orient)
     else:
-        result = spark.sql(f"show tables from {db}") \
+        result = spark.sql(f"SHOW TABLES FROM {db}") \
             .toPandas() \
             .to_dict(orient=orient)
     return result

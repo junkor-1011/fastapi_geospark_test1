@@ -36,13 +36,28 @@ async def get_databases(orient: str = "dict"):
     return exec_spark.get_databases(orient=orient)
 
 
-@router.post("/api/databases/")
+@router.get("/api/databases/{db}")
+async def describe_database(
+    db: str,
+    orient: str = "dict",
+    extended: Optional[bool] = True,
+):
+    """describe database"""
+    result = exec_spark.describe_database(
+        db=db,
+        orient=orient,
+        extended=extended,
+    )
+    return result
+
+
+@router.post("/api/databases/{db}")
 async def create_database(db: str):
     result = exec_spark.create_database(db=db)
     return result
 
 
-@router.put("/api/databases/")
+@router.put("/api/databases/{db}")
 async def put_database(db: str):
     """
     PUT database
@@ -54,7 +69,7 @@ async def put_database(db: str):
     return {"message": "Sorry, Not Implemented yet."}
 
 
-@router.delete("/api/databases")
+@router.delete("/api/databases/{db}")
 async def delete_database(
     db: str,
     ifexists: Optional[bool] = True,
