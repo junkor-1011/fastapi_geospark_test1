@@ -1,0 +1,6 @@
+app/
+scripts/
+init_project
+# Pipfile
+# Pipfile.lock
+.env

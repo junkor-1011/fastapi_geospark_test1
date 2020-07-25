@@ -1,0 +1,30 @@
+# name: hoge
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda
+  - pip
+  - python==3.7
+  - fastapi
+  - uvicorn
+  - aiofiles
+  - jinja2
+  # - openjdk==8.*
+  # - pyspark==3.*
+  - pyarrow
+  # - fastparquet
+  - pandas>=1.0
+  - numpy
+  - geopandas
+  - shapely
+  # - geopy
+  # - gdal==2.*
+  # - bokeh==2.0.1
+  # - holoviews
+  # - folium
+  - sqlalchemy
+  - alembic
+  # - databases
+  # - pip:
+  #   - geospark

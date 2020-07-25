@@ -1,0 +1,29 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+python-language-server = {extras = ["all"], version = "*"}
+tox = "*"
+ipdb = "*"
+pudb = "*"
+
+[packages]
+uvicorn = "*"
+fastapi = "*"
+sqlalchemy = "*"
+alembic = "*"
+databases = "*"
+jinja2 = "*"
+aiofiles = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+start = "uvicorn app.main:app --host 0.0.0.0"
+start_proxy = "uvicorn app.main:app --host 0.0.0.0 --proxy-headers --forwarded-allow-ips *"
+reload = "uvicorn app.main:app --host 0.0.0.0 --reload"
+reload_proxy = "uvicorn app.main:app --host 0.0.0.0 --reload --proxy-headers --forwarded-allow-ips *"

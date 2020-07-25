@@ -1,0 +1,77 @@
+#!/usr/bin/env sh
+
+# DEFAULT ARGS
+if [ -x /bin/zsh ]; then
+    USING_SHELL=/bin/zsh
+elif [ -x /bin/bash ]; then
+    USING_SHELL=/bin/bash
+else
+    USING_SHELL=/bin/sh
+fi
+
+PROJECT_PROMPT=fastapi_pyspark1
+PROJECT_HOME=$(cd $(dirname $0)/..; pwd)
+SPARK_WAREHOUSE_HOME=$PROJECT_HOME/hive-db/spark-warehouse
+HIVE_METASTORE_DB_HOME=$PROJECT_HOME/hive-db
+
+# PYTHONPATH=$PROJECT_HOME/app/libs:$PYTHONPATH
+
+# https://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb
+# https://qiita.com/ko1nksm/items/cea7e7cfdc9e25432bab
+args=`getopt -o -l using-shell:project-home:spark-warehouse-home:hive-metastore-db-home:pythonpath -- "$@"`
+
+if [ $? != 0 ]; then
+    echo "Usage: $0 [--using-shell | --project-home | --spark-warehouse-home | --hive-metastore-db-home ] " 1>&2
+    exit 1
+fi
+#set -- $args
+eval "set -- $args"
+for OPT in "$@"
+do
+    case $OPT in
+#        -a) A_FLAG=1
+#            shift
+#            ;;
+        --using-shell) USING_SHELL=$2
+            shift 2
+            ;;
+        --project-prompt) PROJECT_PROMPT=$2
+            shift 2
+            ;;
+        --project-home) PROJECT_HOME=$2
+            shift 2
+            ;;
+        --spark-warehouse-home) SPARK_WAREHOUSE_HOME=$2
+            shift 2
+            ;;
+        --hive-metastore-db-home) HIVE_METASTORE_DB_HOME=$2
+            shift 2
+            ;;
+        --) shift
+            break
+            ;;
+    esac
+done
+
+
+# ToDo: setting-prompt
+# export PS1=\($PROJECT_PROMPT\)$PS1
+# export PROMPT=\($PROJECT_PROMPT\)$PROMPT
+
+export PROJECT_HOME=$PROJECT_HOME
+export SPARK_WAREHOUSE_HOME=$SPARK_WAREHOUSE_HOME
+export HIVE_METASTORE_DB_HOME=$HIVE_METASTORE_DB_HOME
+
+export PYTHONPATH=$PROJECT_HOME/app/libs:$PYTHONPATH
+
+export PATH=$PROJECT_HOME/scripts/project_bin:$PATH
+
+# custom setting
+if [ -f $PROJECT_HOME/scripts/custom_setting ]; then
+    source $PROJECT_HOME/scripts/custom_setting
+fi
+
+# run project-shell
+cd $PROJECT_HOME
+$USING_SHELL
+

@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  web:
+    container_name: web
+    hostname: web
+    image: nginx:${NGINX_VERSION:-alpine}
+    depends_on:
+      - app
+    ports:
+            - "${PORT:-8443}:443"
+    volumes:
+      - ./docker/web/conf.d:/etc/nginx/conf.d
+      - ./docker/web/ssl:/etc/nginx/ssl
+      - ./log/nginx:/var/log/nginx
+      # - staticdata:/app/static
+      - ./app/static/:/app/static/  # for DEBUG
+      - ./client/:/app/client/
+    networks:
+      # - nginx_network
+      nginx_network:
+        aliases:
+          - nginx-server
+
+  app:
+    container_name: app
+    hostname: app
+    image: ${using_image:-app_fastapi_geospark_test1:latest}
+    expose:
+      - 8000
+      - 4040
+    networks:
+      # - nginx_network
+      nginx_network:
+        aliases:
+          - uvicorn-server
+      # - db_network
+    ports:
+      - "${SPARKUI_PORT:-4050}:4040"
+    volumes:
+      - ./app:/app/app
+      - ./scripts:/app/scripts
+      - ./data/db/app_sqlite.db:/app/data/db/app_sqlite.db
+      - ./hive-db:/app/hive-db
+      - ./client:/app/client
+      - staticdata:/app/app/static/
+      # - clientdata:/app/client/
+    command: "run_app_reload"
+    # depends_on:
+    #   - db_postgis
+    # links:
+    #   - db_postgis:db_postgis
+
+networks:
+  nginx_network:
+    driver: bridge
+  # db_network:
+  #   driver: bridge
+
+volumes:
+  staticdata:
+  # clientdata:

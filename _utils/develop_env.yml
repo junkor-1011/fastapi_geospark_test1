@@ -1,0 +1,34 @@
+name: fastapi_geospark_test1
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda
+  - pip
+  - python==3.7.*
+  - fastapi
+  - uvicorn
+  - aiofiles
+  - jinja2
+  - openjdk==8.*
+  - pyspark==2.*
+  - pyarrow>=1.0
+  # - fastparquet
+  - pandas>=1.0
+  - numpy
+  - geopandas
+  - shapely
+  # - geopy
+  # - gdal==2.*
+  # - bokeh==2.0.1
+  # - holoviews
+  # - folium
+  - sqlalchemy
+  - alembic
+  # - databases
+  # debug
+  - python-language-server
+  - pytest
+  - tox
+  - pip:
+    - geospark
