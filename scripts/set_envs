@@ -1,10 +1,10 @@
 
 # set default project's envs
 export PROJECT_HOME=$(cd $(dirname $0)/..; pwd)
-export SPARK_WAREHOUSE_HOME=$PROJECT_HOME/hive-db/spark-warehouse
-export HIVE_METASTORE_DB_HOME=$PROJECT_HOME/hive-db
+export SPARK_WAREHOUSE_HOME=$PROJECT_HOME/data/hive-db/spark-warehouse
+export HIVE_METASTORE_DB_HOME=$PROJECT_HOME/data/hive-db
 
-export PYTHONPATH=$PROJECT_HOME/app/libs:$PYTHONPATH
+export PYTHONPATH=$PROJECT_HOME/app/libs/pyspark_utils:$PYTHONPATH
 
 export PATH=$PROJECT_HOME/scripts/project_bin:$PATH
 

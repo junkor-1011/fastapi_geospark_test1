@@ -1,8 +1,9 @@
 # please source me from bash or zsh
 
 # pyenv
-PROJECT_PYENV=miniconda3-latest/envs/fastapi_pyspark
+PROJECT_PYENV=miniconda3-latest/envs/fastapi_geospark_test1
 pyenv shell $PROJECT_PYENV
+export ARROW_PRE_0_15_IPC_FORMAT=1
 # export PROJECT_PYTHON_HOME=$HOME/.pyenv/versions/miniconda3-latest/envs/fastapi_pyspark
 
 # export PATH=$PROJECT_PYTHON_HOME/sbin:$PROJECT_PYTHON_HOME/bin:$PATH
