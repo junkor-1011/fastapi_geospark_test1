@@ -130,7 +130,7 @@ RUN pip install geospark && \
 EXPOSE 8000
 
 ENV PROJECT_HOME=/app \
-    SPARK_WAREHOUSE_HOME=/app/hive-db/spark-warehouse \
+    SPARK_WAREHOUSE_HOME=/app/data/hive-db/spark-warehouse \
     HIVE_METASTORE_DB_HOME=/app/data/hive-db \
     PYTHONPATH=/app/app/libs/pyspark_utils:$PYTHONPATH \
     PATH=/app/scripts/project_bin:$PATH

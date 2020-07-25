@@ -9,8 +9,6 @@ import pyspark
 import pyspark.sql
 
 from .session import spark
-# create session (TMP)
-# spark = pyspark_utils.get_or_create_geospark_session()
 
 
 def get_databases(orient: str="dict") -> dict:
