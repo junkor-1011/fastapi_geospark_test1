@@ -13,7 +13,7 @@ sh ./fetch.sh
 
 # ref: https://blog.kkty.jp/entry/2019/06/16/214951
 tar -czh . | docker build \
-        -t ${IMAGE_TAG:-app_fastapi_pyspark_conda} \
+        -t ${IMAGE_TAG:-app_fastapi_geospark_test1} \
         --build-arg BASE_IMAGE=${BASE_IMAGE:-adoptopenjdk:8-jre-hotspot-bionic} \
         --build-arg USER_UID=${USER_UID:-1000} \
         --build-arg PASSWD=${PASSWD:-password} \

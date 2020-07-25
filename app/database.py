@@ -27,7 +27,7 @@ def create_setting(using_db):
     """
     if using_db == 'sqlite3' or using_db == 'sqlite':
 
-        SQLALCHEMY_DATABASE_URL = "sqlite:///./db/app_sqlite.db"
+        SQLALCHEMY_DATABASE_URL = "sqlite:///./data/db/app_sqlite.db"
 
         engine = create_engine(
             SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}

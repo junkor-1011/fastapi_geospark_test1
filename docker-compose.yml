@@ -24,7 +24,7 @@ services:
   app:
     container_name: app
     hostname: app
-    image: ${using_image:-app_fastapi_pyspark_conda:latest}
+    image: ${using_image:-app_fastapi_geospark_test1:latest}
     expose:
       - 8000
       - 4040
@@ -35,12 +35,11 @@ services:
           - uvicorn-server
       # - db_network
     ports:
-      # - "${APP_PORT_TMP:-8000}:8000"    # TMP
       - "${SPARKUI_PORT:-4050}:4040"
     volumes:
       - ./app:/app/app
       - ./scripts:/app/scripts
-      - ./db/app_sqlite.db:/app/db/app_sqlite.db
+      - ./data/db/app_sqlite.db:/app/data/db/app_sqlite.db
       - ./hive-db:/app/hive-db
       - staticdata:/app/app/static/
     command: "run_app_reload"

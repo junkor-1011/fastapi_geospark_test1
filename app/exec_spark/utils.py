@@ -8,11 +8,9 @@ import pandas as pd
 import pyspark
 import pyspark.sql
 
-from .libs.SparkDriver import SparkDriver
-
+from .session import spark
 # create session (TMP)
-sd = SparkDriver()
-spark = sd.spark
+# spark = pyspark_utils.get_or_create_geospark_session()
 
 
 def get_databases(orient: str="dict") -> dict:
