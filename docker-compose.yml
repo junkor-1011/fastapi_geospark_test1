@@ -14,7 +14,8 @@ services:
       - ./docker/web/ssl:/etc/nginx/ssl
       - ./log/nginx:/var/log/nginx
       # - staticdata:/app/static
-      - ./app/static/:/app/staitc/  # for DEBUG
+      - ./app/static/:/app/static/  # for DEBUG
+      - ./client/:/app/client/
     networks:
       # - nginx_network
       nginx_network:
@@ -41,7 +42,9 @@ services:
       - ./scripts:/app/scripts
       - ./data/db/app_sqlite.db:/app/data/db/app_sqlite.db
       - ./hive-db:/app/hive-db
+      - ./client:/app/client
       - staticdata:/app/app/static/
+      # - clientdata:/app/client/
     command: "run_app_reload"
     # depends_on:
     #   - db_postgis
@@ -56,3 +59,4 @@ networks:
 
 volumes:
   staticdata:
+  # clientdata:

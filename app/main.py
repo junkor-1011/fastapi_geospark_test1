@@ -2,6 +2,7 @@
 app main
 """
 
+import os
 import pathlib
 
 # from fastapi import Depends, FastAPI, Header, HTTPException
@@ -21,7 +22,15 @@ from .routers import (
 # from .test_static import router as router_static   # TMP
 
 # const
-PATH_STATIC = str(pathlib.Path(__file__).resolve().parent / "static")
+PATH_STATIC = os.getenv(
+    "PATH_STATIC",
+    str(pathlib.Path(__file__).resolve().parent / "static")
+)
+PATH_CLIENT = os.getenv(
+    "CLIENT",
+    str(pathlib.Path(__file__).resolve().parent.parent / "client")
+)
+# IS_DEPLOY = os.getenv("IS_DEPLOY", None)
 
 
 def create_app():
@@ -58,6 +67,11 @@ def create_app():
         "/static",
         StaticFiles(directory=PATH_STATIC, html=False),
         name="static",
+    )
+    _app.mount(
+        "/client",
+        StaticFiles(directory=PATH_CLIENT, html=False),
+        name="client",
     )
 
     return _app

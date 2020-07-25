@@ -133,7 +133,8 @@ ENV PROJECT_HOME=/app \
     SPARK_WAREHOUSE_HOME=/app/data/hive-db/spark-warehouse \
     HIVE_METASTORE_DB_HOME=/app/data/hive-db \
     PYTHONPATH=/app/app/libs/pyspark_utils:$PYTHONPATH \
-    PATH=/app/scripts/project_bin:$PATH
+    PATH=/app/scripts/project_bin:$PATH \
+    IS_DEPLOY=1
 
 # Execute
 CMD ["run_app"]
