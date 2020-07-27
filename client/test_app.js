@@ -11,8 +11,10 @@ $(document).ready(() => {
     // leaflet
     var map = L.map('map').setView([35.65, 139.7], 15);
 
+    let fg = new L.featureGroup();
+    map.addLayer(fg);
 
-    L.marker([35.66, 139.75]).addTo(map)
+    L.marker([35.66, 139.75]).addTo(fg)
         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
     //.openPopup();
 
@@ -66,7 +68,7 @@ $(document).ready(() => {
     };
     var myLines_Geo = L.geoJSON(myLines, {
         style: myStyle
-    }).addTo(map);
+    }).addTo(fg);
     myLines_Geo.on('click', () => {
         console.log("LineString clicked.");
         map.setZoom(map.getZoom() - 0.25)   // TMP for DEBUG
@@ -75,13 +77,14 @@ $(document).ready(() => {
 
 
     var latlngs = [[34.5, 138.3], [35.5, 139.3], [35, 140.3]];
-    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(fg);
     polyline.on('mouseover', () => {
         console.log("mouseover");
     }).on('mouseout', () => {
         console.log("mouseout");
         console.log(map.getZoom());   // TMP for DEBUG
     });
+
 
     map.pm.addControls({
           position: 'topleft',
