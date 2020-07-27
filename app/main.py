@@ -82,8 +82,12 @@ app = create_app()
 
 @app.get('/')
 async def site_root():
-    """hello-world(TMP)"""
-    return {"message": "Hello, WORLD!"}
+    """
+    client root page.
+    """
+    return RedirectResponse(
+        "/client/index.html",
+    )
 
 
 @app.get('/redirect_subpage')
