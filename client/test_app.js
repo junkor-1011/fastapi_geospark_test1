@@ -26,6 +26,13 @@ $(document).ready(() => {
     //地理院地図の淡色地図タイル
     const gsipale = L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
       {attribution: "<a href='http://portal.cyberjapan.jp/help/termsofuse.html' target='_blank'>地理院タイル</a>"});
+    // Stamen Terrain
+    const stamen_terrain = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',
+      {attribution: '<a id="home-link" target="_top" href="http://maps.stamen.com/">Map tiles</a> by <a target="_top" href="http://stamen.com">Stamen Design</a>, under <a target="_top" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data © <a target="_top" href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.'});
+    const stamen_toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png',
+      {attribution: '<a id="home-link" target="_top" href="../">Map tiles</a> by <a target="_top" href="http://stamen.com">Stamen Design</a>, under <a target="_top" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'});
+    const stamen_watercolor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
+      {attribution: 'Map tiles by <a href="https://stamen.com/" target="_blank">Stamen Design</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>. © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors.'});
     //オープンストリートマップのタイル
     const osm = L.tileLayer('http://tile.openstreetmap.jp/{z}/{x}/{y}.png',
       {  attribution: "<a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors" });
@@ -33,7 +40,10 @@ $(document).ready(() => {
     const baseMaps = {
       "地理院地図" : gsi,
       "淡色地図" : gsipale,
-      "OpenStreetMap" : osm.addTo(map)  // 1つだけaddToしておくとデフォルト表示になる
+      "Stamen Terrain": stamen_terrain,
+      "Stamen Toner": stamen_toner,
+      "Stamen WaterColor": stamen_watercolor,
+      "OpenStreetMap" : osm.addTo(map),  // 1つだけaddToしておくとデフォルト表示になる
     };
 
     // var maps = Object.assign(baseMaps, mapboxMaps);
