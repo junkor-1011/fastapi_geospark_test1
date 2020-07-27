@@ -13,8 +13,8 @@ $(document).ready(() => {
 
 
     // Leaflet.draw test
-    let editableLayers = new L.FeatureGroup();
-    map.addLayer(editableLayers);
+    // let editableLayers = new L.FeatureGroup();
+    // map.addLayer(editableLayers);
 
     L.marker([35.66, 139.75]).addTo(map)
         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
@@ -88,56 +88,68 @@ $(document).ready(() => {
     });
 
     // Leaflet.draw test
-    // let editableLayers = new L.FeatureGroup();
-    // map.addLayer(editableLayers);
+    let editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+
+    // var options = {
+    //     position: 'topleft',
+    //     draw: {
+    //         polyline: {
+    //             shapeOptions: {
+    //                 color: '#f357a1',
+    //                 weight: 3
+    //             }
+    //         },
+    //         polygon: {
+    //             allowIntersection: false, // Restricts shapes to simple polygons
+    //             drawError: {
+    //                 color: '#e1e100', // Color the shape will turn when intersects
+    //                 message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+    //             },
+    //             shapeOptions: {
+    //                 color: '#bada55'
+    //             }
+    //         },
+    //         circle: false, // Turns off this drawing tool
+    //         rectangle: {
+    //             shapeOptions: {
+    //                 clickable: false
+    //             }
+    //         },
+    //         // marker: {
+    //         //     icon: new MyCustomMarker()
+    //         // }
+    //     },
+    //     edit: {
+    //         featureGroup: editableLayers, //REQUIRED!!
+    //         remove: false
+    //     }
+    // };
+
+    // var drawControl = new L.Control.Draw(options);
+    // map.addControl(drawControl);
 
     var options = {
-        position: 'topleft',
         draw: {
-            polyline: {
-                shapeOptions: {
-                    color: '#f357a1',
-                    weight: 3
-                }
-            },
-            polygon: {
-                allowIntersection: false, // Restricts shapes to simple polygons
-                drawError: {
-                    color: '#e1e100', // Color the shape will turn when intersects
-                    message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
-                },
-                shapeOptions: {
-                    color: '#bada55'
-                }
-            },
             circle: false, // Turns off this drawing tool
-            rectangle: {
-                shapeOptions: {
-                    clickable: false
-                }
-            },
-            // marker: {
-            //     icon: new MyCustomMarker()
-            // }
-        },
-        edit: {
-            featureGroup: editableLayers, //REQUIRED!!
-            remove: false
+            rectangle: false,
+            marker: false,
+            circlemarker: false
         }
     };
 
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
 
-    map.on(L.Draw.Event.CREATED, function (e) {
-        var type = e.layerType,
-            layer = e.layer;
+    // map.on(L.Draw.Event.CREATED, function (e) {
+    //     var type = e.layerType,
+    //         layer = e.layer;
 
-        // if (type === 'marker') {
-        //     layer.bindPopup('A popup!');
-        // }
+    //     // if (type === 'marker') {
+    //     //     layer.bindPopup('A popup!');
+    //     // }
 
-        editableLayers.addLayer(layer);
-    });
+    //     editableLayers.addLayer(layer);
+    // });
 
 });
