@@ -11,9 +11,10 @@ $(document).ready(() => {
     // leaflet
     var map = L.map('map').setView([35.65, 139.7], 15);
 
-    //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    //}).addTo(map);
+
+    // Leaflet.draw test
+    let editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
 
     L.marker([35.66, 139.75]).addTo(map)
         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
@@ -33,6 +34,7 @@ $(document).ready(() => {
         {attribution: '<a id="home-link" target="_top" href="../">Map tiles</a> by <a target="_top" href="http://stamen.com">Stamen Design</a>, under <a target="_top" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'});
     const stamen_watercolor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
         {attribution: 'Map tiles by <a href="https://stamen.com/" target="_blank">Stamen Design</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>. © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors.'});
+    const arcgis_world_imaginary = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
     //オープンストリートマップのタイル
     const osm = L.tileLayer('http://tile.openstreetmap.jp/{z}/{x}/{y}.png',
         {  attribution: "<a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors" });
@@ -43,6 +45,7 @@ $(document).ready(() => {
         "Stamen Terrain": stamen_terrain,
         "Stamen Toner": stamen_toner,
         "Stamen WaterColor": stamen_watercolor,
+        "World Imaginary": arcgis_world_imaginary,
         "OpenStreetMap" : osm.addTo(map),  // 1つだけaddToしておくとデフォルト表示になる
     };
 
@@ -85,8 +88,8 @@ $(document).ready(() => {
     });
 
     // Leaflet.draw test
-    let editableLayers = new L.FeatureGroup();
-    map.addLayer(editableLayers);
+    // let editableLayers = new L.FeatureGroup();
+    // map.addLayer(editableLayers);
 
     var options = {
         position: 'topleft',
